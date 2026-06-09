@@ -1,6 +1,6 @@
 import StudentRow from "./StudentRow";
 
-const StudentTable = ({ students }) => {
+const StudentTable = ({ students, onDelete }) => {
   return (
     <div className="overflow-x-auto bg-white rounded-lg shadow">
       <table className="w-full">
@@ -17,7 +17,11 @@ const StudentTable = ({ students }) => {
 
         <tbody>
           {students.map((student) => (
-            <StudentRow key={student.id} student={student} />
+            <StudentRow
+              key={student._id}
+              student={student}
+              onDelete={onDelete}
+            />
           ))}
         </tbody>
       </table>

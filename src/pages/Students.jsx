@@ -1,13 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import SearchBar from "../components/student/SearchBar";
 import StudentTable from "../components/student/StudentTable";
-import dummyStudents from "../data/dummyStudents";
+import axios from "axios";
 
 const Students = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [students, setStudents] = useState([]);
 
-  const filteredStudents = dummyStudents.filter(
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this student?",
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(`http://localhost:5000/students/${id}`);
+
+      setStudents((prevStudents) =>
+        prevStudents.filter((student) => student._id !== id),
+      );
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete student");
+    }
+  };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/students")
+      .then((response) => {
+        setStudents(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const filteredStudents = students.filter(
     (student) =>
       student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.rollNo.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -33,7 +64,7 @@ const Students = () => {
       </div>
 
       {/* Table */}
-      <StudentTable students={filteredStudents} />
+      <StudentTable students={filteredStudents} onDelete={handleDelete} />
     </div>
   );
 };

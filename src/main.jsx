@@ -7,7 +7,6 @@ import {
   RouterProvider,
   Route,
 } from "react-router";
-import App from "./App.jsx";
 import Layout from "./Layout.jsx";
 import Students from "./pages/Students.jsx"
 import Dashboard from "./pages/Dashboard.jsx"

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdOutlineModeEdit } from "react-icons/md";
 
 const StudentForm = ({
@@ -17,10 +17,12 @@ const StudentForm = ({
 
   const fileInputRef = useRef(null);
 
-  //   useEffect(() => {
-  //     setFormData(initialData);
-  //     setPreview(initialData.photo || "");
-  //   }, [initialData]);
+  useEffect(() => {
+    if (initialData.name || initialData.rollNo) {
+      setFormData(initialData);
+      setPreview(initialData.photo || "");
+    }
+  }, [initialData]);
 
   const handleChange = (e) => {
     setFormData({
@@ -79,7 +81,7 @@ const StudentForm = ({
               onClick={() => fileInputRef.current.click()}
               className="absolute bottom-1 right-1 bg-blue-600 text-white rounded-full p-2 shadow-md hover:bg-blue-700 transition"
             >
-              <MdOutlineModeEdit size={20}/>
+              <MdOutlineModeEdit size={20} />
             </button>
 
             {/* Hidden File Input */}

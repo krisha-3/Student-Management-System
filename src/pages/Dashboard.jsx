@@ -1,7 +1,19 @@
 import { Link } from "react-router";
-import dummyStudents from "../data/dummyStudents";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Dashboard = () => {
+  const [students, setStudents] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/students")
+      .then((response) => {
+        setStudents(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
   return (
     <div className="p-6">
       {/* Page Heading */}
@@ -14,7 +26,7 @@ const Dashboard = () => {
           <h2 className="text-gray-500 text-lg">Total Students</h2>
 
           <p className="text-4xl font-bold text-blue-600 mt-2">
-            {dummyStudents.length}
+            {students.length}
           </p>
         </div>
 
@@ -41,16 +53,22 @@ const Dashboard = () => {
         <h2 className="text-2xl font-semibold mb-4">Recent Students</h2>
 
         <div className="space-y-4">
-          {dummyStudents.slice(0, 5).map((student) => (
+          {students.slice(0, 5).map((student) => (
             <div
-              key={student.id}
+              key={student._id}
               className="flex items-center gap-4 border-b pb-3"
             >
-              <img
-                src={student.photo}
-                alt={student.name}
-                className="w-12 h-12 rounded-full object-cover"
-              />
+              {student.photo ? (
+                <img
+                  src={student.photo}
+                  alt={student.name}
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+              ) : (
+                <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
+                  👤
+                </div>
+              )}
 
               <div>
                 <p className="font-medium">{student.name}</p>
