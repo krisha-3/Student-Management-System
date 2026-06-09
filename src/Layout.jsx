@@ -1,13 +1,21 @@
 import React from "react";
 import Navbar from "./components/layout/Navbar";
+import Sidebar from "./components/layout/Sidebar";
 import { Outlet } from "react-router";
 
 function Layout() {
   return (
-    <>
+    <div className="h-screen flex flex-col">
       <Navbar />
-      <Outlet />
-    </>
+
+      <div className="flex flex-1">
+        <Sidebar />
+
+        <main className="flex-1 p-4">
+          <Outlet />
+        </main>
+      </div>
+    </div>
   );
 }
 
