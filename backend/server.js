@@ -1,3 +1,10 @@
+require("dotenv").config();
+
+console.log("Cloud Name:", process.env.CLOUDINARY_CLOUD_NAME);
+console.log("API Key:", process.env.CLOUDINARY_API_KEY);
+console.log("API Secret exists:", !!process.env.CLOUDINARY_API_SECRET);
+
+const upload = require("./middleware/upload");
 const express = require("express");
 const connectDB = require("./config/db");
 const Students = require("./models/Students");
@@ -97,6 +104,29 @@ app.post("/students", async (req, res) => {
   }
 });
 
+app.post("/upload", upload.single("photo"), (req, res) => {
+  try {
+    console.log(JSON.stringify(req.file, null, 2));
+
+    res.json({
+      imageUrl: req.file.path,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+app.use((err, req, res, next) => {
+  console.error("GLOBAL ERROR:");
+  console.error(err);
+
+  res.status(500).json({
+    message: err.message,
+  });
+});
 app.listen(5000, () => {
   console.log("Server Running on Port 5000");
 });

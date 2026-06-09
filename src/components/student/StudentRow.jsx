@@ -25,6 +25,12 @@ const StudentRow = ({ student, onDelete }) => {
       <td className="p-3">
         <Link
           to={`/students/edit/${student._id}`}
+          className="bg-blue-600 text-white px-3 py-1 rounded mr-2"
+        >
+          View
+        </Link>
+        <Link
+          to={`/students/edit/${student._id}`}
           className="bg-yellow-500 text-white px-3 py-1 rounded mr-2"
         >
           Edit
