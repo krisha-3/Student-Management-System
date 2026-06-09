@@ -9,15 +9,18 @@ import {
 } from "react-router";
 import App from "./App.jsx";
 import Layout from "./Layout.jsx";
+import Students from "./pages/Students.jsx"
+import Dashboard from "./pages/Dashboard.jsx"
+import AddStudent from "./pages/AddStudent.jsx"
+import EditStudent from "./pages/EditStudent.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-      {/* <Route path="" element={<Home />} />
-      <Route path="about" element={<AboutUs />} />
-      <Route path="contact" element={<ContactUs />} />
-      <Route path="user/:userid" element={<User />} />
-      <Route path="github" element={<Github />} /> */}
+      <Route path="" element={<Dashboard />} />
+      <Route path="students" element={<Students />} />
+      <Route path="students/add" element={<AddStudent />} />
+      <Route path="/students/edit/:id" element={<EditStudent />} />
     </Route>,
   ),
 );
