@@ -268,7 +268,7 @@ This project helped in understanding:
 
 ## 👩‍💻 Author
 
-### Krisha Viral Pandya
+### Pandya Krisha Viral
 
 B.Tech Computer Engineering Student
 
